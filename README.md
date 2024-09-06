@@ -1,2 +1,2 @@
 # Vread
-Visual Reading
+Visual Reading app
