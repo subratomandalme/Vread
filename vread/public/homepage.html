@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books and Audiobooks Library</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #3a3a3a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 1200px;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .category-tabs button {
+            background-color: #3a3a3a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-tabs button:hover {
+            background-color: #606060;
+        }
+
+        .category-tabs button.active {
+            background-color: #1e90ff;
+        }
+
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .book-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .book-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-item h3 {
+            margin-top: 0;
+        }
+
+        .book-item p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .search-bar input {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Books and Audiobooks Library</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search books or audiobooks..." id="searchInput" onkeyup="filterItems()">
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+            <button class="active" onclick="showCategory('all')">All</button>
+            <button onclick="showCategory('book')">Books</button>
+            <button onclick="showCategory('audiobook')">Audiobooks</button>
+        </div>
+
+        <!-- Book and Audiobook List -->
+        <div class="book-list" id="bookList">
+            <div class="book-item" data-category="book">
+                <h3>The Great Gatsby</h3>
+                <p>Author: F. Scott Fitzgerald</p>
+                <p>Category: Book</p>
+            </div>
+            <div class="book-item" data-category="audiobook">
+                <h3>Becoming</h3>
+                <p>Author: Michelle Obama</p>
+                <p>Category: Audiobook</p>
+            </div>
+            <div class="book-item" data-category="book">
+                <h3>1984</h3>
+                <p>Author: George Orwell</p>
+                <p>Category: Book</p>
+            </div>
+            <div class="book-item" data-category="audiobook">
+                <h3>Atomic Habits</h3>
+                <p>Author: James Clear</p>
+                <p>Category: Audiobook</p>
+            </div>
+            <div class="book-item" data-category="book">
+                <h3>To Kill a Mockingbird</h3>
+                <p>Author: Harper Lee</p>
+                <p>Category: Book</p>
+            </div>
+            <div class="book-item" data-category="audiobook">
+                <h3>Can't Hurt Me</h3>
+                <p>Author: David Goggins</p>
+                <p>Category: Audiobook</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Books and Audiobooks Library. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function filterItems() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.book-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(searchInput) ? 'block' : 'none';
+            });
+        }
+
+        function showCategory(category) {
+            const buttons = document.querySelectorAll('.category-tabs button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            const currentButton = [...buttons].find(btn => btn.textContent.toLowerCase() === category);
+            currentButton.classList.add('active');
+
+            const items = document.querySelectorAll('.book-item');
+            items.forEach(item => {
+                item.style.display = category === 'all' || item.getAttribute('data-category') === category ? 'block' : 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>
